@@ -1,0 +1,5 @@
+(
+    selection_bg: Some(Yellow),
+    selection_fg: Some(Black),
+    command_fg: Some(Black),
+)
