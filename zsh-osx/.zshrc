@@ -7,18 +7,13 @@ navialias() {
 
 alias dcu="navialias dcu"
 
-# starship
 eval "$(starship init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
-# iterm
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# fnm
 export PATH="/Users/mario/Library/Application Support/fnm:$PATH"
 eval "`fnm env`"
-
-# zoxide
-eval "$(zoxide init --cmd cd zsh)"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/mario/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mario/google-cloud-sdk/path.zsh.inc'; fi
