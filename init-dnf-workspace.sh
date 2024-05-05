@@ -23,12 +23,12 @@ sudo dnf install stow -y
 
 echo "Install Zoxide"
 sudo dnf copr enable atim/zoxide -y
-sudo dnf install zoxide
+sudo dnf install zoxide -y
 
 echo "Install Tmux"
 sudo dnf install tmux -y
 
 echo "Clone TPM"
-if [ ! -d "~/.tmux/plugins/tpm"]; then
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 fi
