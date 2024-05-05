@@ -1,5 +1,6 @@
 #! /usr/bin/bash
-set -ex
+set -e
+
 echo "Update packages"
 sudo dnf update -y
 
