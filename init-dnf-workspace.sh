@@ -35,6 +35,7 @@ git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 fi
 
 echo "Swap Capslock into Esc"
+sudo dnf install dconf -y
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 
 echo "Append configs into .bashrc"
