@@ -121,5 +121,10 @@ return {
 			vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua _GITUI_TOGGLE()<CR>",
 				{ desc = "Open GitUI", noremap = true, silent = true })
 		end
+	},
+	{
+		'stevearc/dressing.nvim',
+		opts = {},
 	}
+
 }
