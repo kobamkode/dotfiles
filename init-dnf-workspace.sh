@@ -33,3 +33,20 @@ echo "Clone TPM"
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 fi
+
+echo "Swap Capslock into Esc"
+dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
+
+echo "Append configs into .bashrc"
+echo -e eval "$(zoxide init bash)" >> $HOME/.bashrc
+echo -e alias ll="ls -al --color" >> $HOME/.bashrc
+
+echo "Stow dotfiles"
+if [ "$PWD" != "$HOME/dotfiles" ]; then
+cd "$HOME/dotfiles" || exit
+stow nvim
+stow tmux
+stow .fonts
+stow gitui
+fi
+
