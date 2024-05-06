@@ -53,5 +53,5 @@ echo 'alias ll="ls -al"' >> "$HOME/.bashrc"
 echo "Stow dotfiles"
 stow nvim
 stow tmux
-stow .fonts
+stow fonts
 stow gitui
