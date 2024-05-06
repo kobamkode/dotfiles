@@ -40,9 +40,10 @@ sudo dnf install dconf -y
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 
 echo "Install Go"
-curl -O https://www.digitalocean.com/robots.txt
+curl -O https://go.dev/dl/go1.22.2.linux-amd64.tar.gz 
 sudo rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
 echo export PATH=$PATH:/usr/local/go/bin >> "$HOME/.bashrc"
+sudo rm -rf go1.22.2.linux-amd64.tar.gz
 
 echo "Append configs into .bashrc"
 echo alias ll="ls -al --color" >> "$HOME/.bashrc"
