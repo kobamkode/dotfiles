@@ -9,6 +9,8 @@ sudo dnf upgrade -y
 
 echo "Install Neovim"
 sudo dnf install neovim ripgrep fd-find -y
+echo 'export VISUAL=nvim' >> "$HOME/.bashrc"
+echo 'export EDITOR="$VISUAL"' >> "$HOME/.bashrc"
 
 echo "Install build-essential"
 sudo dnf group install "C Development Tools and Libraries" -y
