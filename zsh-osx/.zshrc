@@ -1,18 +1,20 @@
 alias ll="ls -al --color"
-alias cat="bat -n"
+# alias cat="bat"
 
 navialias() {
     navi --query ":: $1" --best-match
 }
 
 alias dcu="navialias dcu"
+alias goblue="go-blueprint create --advanced"
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(direnv hook zsh)"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-export PATH="/Users/mario/Library/Application Support/fnm:$PATH"
+export GOPATH="/Users/mario/go"
+export GOBIN="$GOPATH/bin"
+export PATH="/Users/mario/Library/Application Support/fnm:$GOBIN:$PATH"
 eval "`fnm env`"
 
 # The next line updates PATH for the Google Cloud SDK.

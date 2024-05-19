@@ -114,12 +114,21 @@ return {
 				gitui:toggle()
 			end
 
-			function _DCU_TOGGLE()
+		function _DCU_TOGGLE()
 				devcontainer:toggle()
 			end
 
 			vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua _GITUI_TOGGLE()<CR>",
 				{ desc = "Open GitUI", noremap = true, silent = true })
 		end
-	}
+	},
+	{
+		'stevearc/dressing.nvim',
+		opts = {},
+	},
+	-- {
+	-- 	"yutkat/confirm-quit.nvim",
+	-- 	event = "CmdlineEnter",
+	-- 	opts = {},
+	-- }
 }
