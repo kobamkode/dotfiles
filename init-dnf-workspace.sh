@@ -1,58 +1,73 @@
 #! /usr/bin/bash
 set -e
 
-echo "Update packages"
+printf "Update packages\n"
 sudo dnf update -y
 
-echo "Upgrade packages"
+printf "\nUpgrade packages\n"
 sudo dnf upgrade -y
 
-echo "Install Neovim"
+printf "\nInstall Neovim\n"
 sudo dnf install neovim ripgrep fd-find -y
+echo -e '\n' >> "$HOME/.bashrc"
+echo '# Neovim' >> "$HOME/.bashrc"
 echo 'export VISUAL=nvim' >> "$HOME/.bashrc"
 echo 'export EDITOR="$VISUAL"' >> "$HOME/.bashrc"
 
-echo "Install build-essential"
+printf "\nInstall build-essential\n"
 sudo dnf group install "C Development Tools and Libraries" -y
 
-echo "Install Github CLI"
+printf "\nInstall Github CLI\n"
 sudo dnf install gh -y
 
-echo "Install GitUI"
+printf "\nInstall GitUI\n"
 sudo dnf install gitui -y
 
-echo "Install Stow"
+printf "\nInstall Stow\n"
 sudo dnf install stow -y
 
-echo "Install Zoxide"
+printf "\nInstall Zoxide\n"
 sudo dnf copr enable atim/zoxide -y
 sudo dnf install zoxide -y
+echo -e '\n' >> "$HOME/.bashrc"
+echo '# Zoxide' >> "$HOME/.bashrc"
 echo 'eval "$(zoxide init bash)"' >> "$HOME/.bashrc"
 
-echo "Install Tmux"
+printf "\nInstall Tmux\n"
 sudo dnf install tmux -y
 
-echo "Clone TPM"
+printf "\nClone TPM\n"
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+else
+	printf "TPM already exists\n"
 fi
 
-echo "Swap Capslock into Esc"
+printf "\nSwap Capslock into Esc\n"
 sudo dnf install dconf -y
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 
-echo "Install Go"
+printf "\nInstall Go\n"
 curl -O https://dl.google.com/go/go1.22.2.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
+echo -e '\n' >> "$HOME/.bashrc"
+echo '# Go' >> "$HOME/.bashrc"
 echo 'export PATH=$PATH:/usr/local/go/bin' >> "$HOME/.bashrc"
 sudo rm -rf go1.22.2.linux-amd64.tar.gz
 
-echo "Append configs into .bashrc"
+printf "\nInstall NodeJS\n"
+curl -fsSL https://fnm.vercel.app/install | bash
+. "$HOME/.bashrc"
+fnm install --latest
+
+printf "\nAppend aliases into .bashrc\n"
+echo -e '\n' >> "$HOME/.bashrc"
+echo '# Aliases' >> "$HOME/.bashrc"
 echo 'alias ll="ls -al"' >> "$HOME/.bashrc"
 . "$HOME/.bashrc"
 
-echo "Stow dotfiles"
+printf "\nStow dotfiles\n"
 stow nvim
 stow tmux
 stow fonts
