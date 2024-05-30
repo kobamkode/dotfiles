@@ -27,10 +27,15 @@ brew install starship
 echo '# Starship' >> "$HOME/.zshrc"
 echo 'eval "$(starship init zsh)"' >> "$HOME/.zshrc"
 
+printf "\nInstall FZF\n"
+brew install fzf
+echo '# FZF' >> "$HOME/.zshrc"
+echo 'eval "$(fzf --zsh)"' >> "$HOME/.zshrc"
+
 printf "\nInstall Zoxide\n"
 brew install zoxide
 echo '# Zoxide' >> "$HOME/.zshrc"
-echo 'eval "$(zoxide init zsh)"' >> "$HOME/.zshrc"
+echo 'eval "$(zoxide init zsh --cmd cd)"' >> "$HOME/.zshrc"
 
 printf "\nInstall Tmux\n"
 brew install tmux
@@ -82,5 +87,3 @@ stow gitui
 stow starship
 
 printf "\nSetup has finished!\n"
-printf "\nNotes:!\n"
-
