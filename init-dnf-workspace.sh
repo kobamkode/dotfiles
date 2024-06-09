@@ -31,7 +31,7 @@ sudo dnf copr enable atim/zoxide -y
 sudo dnf install zoxide -y
 echo -e '\n' >> "$HOME/.bashrc"
 echo '# Zoxide' >> "$HOME/.bashrc"
-echo 'eval "$(zoxide init bash)"' >> "$HOME/.bashrc"
+echo 'eval "$(zoxide init bash --cmd cd)"' >> "$HOME/.bashrc"
 
 printf "\nInstall Tmux\n"
 sudo dnf install tmux -y
@@ -48,13 +48,7 @@ sudo dnf install dconf -y
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 
 printf "\nInstall Go\n"
-curl -O https://dl.google.com/go/go1.22.2.linux-amd64.tar.gz
-sudo rm -rf /usr/local/go
-sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
-echo -e '\n' >> "$HOME/.bashrc"
-echo '# Go' >> "$HOME/.bashrc"
-echo 'export PATH=$PATH:/usr/local/go/bin' >> "$HOME/.bashrc"
-sudo rm -rf go1.22.2.linux-amd64.tar.gz
+sudo dnf install golang
 
 printf "\nInstall NodeJS\n"
 curl -fsSL https://fnm.vercel.app/install | bash
@@ -64,7 +58,7 @@ fnm install --latest
 printf "\nAppend aliases into .bashrc\n"
 echo -e '\n' >> "$HOME/.bashrc"
 echo '# Aliases' >> "$HOME/.bashrc"
-echo 'alias ll="ls -al"' >> "$HOME/.bashrc"
+echo 'alias ll="ls -al --color"' >> "$HOME/.bashrc"
 . "$HOME/.bashrc"
 
 printf "\nStow dotfiles\n"
