@@ -7,15 +7,15 @@ sudo dnf update -y
 printf "\nUpgrade packages\n"
 sudo dnf upgrade -y
 
+printf "\nInstall build-essential\n"
+sudo dnf group install "C Development Tools and Libraries" -y
+
 printf "\nInstall Neovim\n"
 sudo dnf install neovim ripgrep fd-find -y
 echo -e '\n' >> "$HOME/.bashrc"
 echo '# Neovim' >> "$HOME/.bashrc"
 echo 'export VISUAL=nvim' >> "$HOME/.bashrc"
 echo 'export EDITOR="$VISUAL"' >> "$HOME/.bashrc"
-
-printf "\nInstall build-essential\n"
-sudo dnf group install "C Development Tools and Libraries" -y
 
 printf "\nInstall Github CLI\n"
 sudo dnf install gh -y
