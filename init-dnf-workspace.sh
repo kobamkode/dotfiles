@@ -48,7 +48,7 @@ sudo dnf install dconf -y
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 
 printf "\nInstall Go\n"
-sudo dnf install golang
+sudo dnf install golang -y
 
 printf "\nInstall NodeJS\n"
 curl -fsSL https://fnm.vercel.app/install | bash
@@ -64,5 +64,4 @@ echo 'alias ll="ls -al --color"' >> "$HOME/.bashrc"
 printf "\nStow dotfiles\n"
 stow nvim
 stow tmux
-stow fonts
 stow gitui
