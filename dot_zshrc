@@ -1,0 +1,39 @@
+# Neovim
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+# Zoxide
+eval "$(zoxide init zsh --cmd cd)"
+
+# FZF
+eval "$(fzf --zsh)"
+
+# Go
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin/
+
+# FNM
+eval "$(fnm env --use-on-cd)"
+
+# Aliases
+alias ll="ls -al --color"
+alias dcu="devcontainer up --remove-existing-container --workspace-folder ."
+alias staging="gcloud compute ssh --zone 'asia-southeast2-a' 'staging-1' --project 'ticmiedu-335104'"
+alias barokah="ssh ticmi@115.85.81.165"
+alias amirror="scrcpy --no-audio -m 800"
+alias t="todo.sh -d $HOME/.config/todosh/todo.cfg "
+
+# Starship
+eval "$(starship init zsh)"
+
+# Podman
+export DOCKER_HOST=unix:///var/folders/0f/ncpbkcx97jxg344hqxhkv2cc0000gn/T/podman/podman-machine-default-api.sock
+
+# PHP
+export PATH="/usr/local/opt/php@8.3/bin:$PATH"
+export PATH="/usr/local/opt/php@8.3/sbin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/mario/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mario/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/mario/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mario/google-cloud-sdk/completion.zsh.inc'; fi
