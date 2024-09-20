@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-PKGS=(git curl tldr neovim tmux gh mpv wezterm gitui)
+PKGS=(git curl tldr neovim tmux gh mpv wezterm gitui chezmoi radiotray-ng)
+GITHUB_USERNAME="kobamkode"
 OS=""
 
 install_pkgs() {
@@ -17,6 +18,10 @@ install_pkgs() {
 				if [[ $i == "wezterm" ]]; then
 					sudo dnf copr enable wezfurlong/wezterm-nightly -y
 					sudo dnf install -y "$i"
+				elif [[ $i == "chezmoi" ]]; then
+					sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
+					sudo mv bin/chezmoi /usr/bin
+					rm -rf bin
 				else
 					sudo dnf install -y "$i"
 				fi
