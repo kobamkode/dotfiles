@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PKGS=(git tldr neovim tmux gh mpv)
+PKGS=(git curl tldr neovim tmux gh mpv wezterm gitui)
 OS=""
 
 install_pkgs() {
@@ -14,11 +14,13 @@ install_pkgs() {
 		if [[ -z $v ]]; then
 			echo "Installing $i..."
 			if [[ $OS == "fedora" ]]; then
-				sudo dnf install -y "$i"
-			fi
+				if [[ $i == "wezterm" ]]; then
+					sudo dnf copr enable wezfurlong/wezterm-nightly -y
+					sudo dnf install -y "$i"
+				else
+					sudo dnf install -y "$i"
+				fi
 
-			if [[ $OS == "ubuntu" ]]; then
-				sudo apt install -y "$i"
 			fi
 		else
 			echo "$i is already installed: $v"
@@ -31,19 +33,11 @@ update_os() {
 	if [[ $OS == "fedora" ]]; then
 		sudo dnf -y update
 	fi
-	
-	if [[ $OS == "ubuntu" ]]; then
-		sudo apt -y update
-	fi
-
-	install_pkgs
 }
 
 if [[ -z $OS ]]; then 
 	if [[ -f /etc/fedora-release ]]; then
 		OS="fedora"
-	elif [[ -f /etc/lsb-release ]]; then
-		OS="ubuntu"
 	else
 		echo "Unsupported OS. Please install $PKGS manually."
 		exit 1
@@ -52,3 +46,4 @@ if [[ -z $OS ]]; then
 fi
 
 update_os
+install_pkgs
