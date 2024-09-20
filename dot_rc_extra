@@ -1,0 +1,18 @@
+# Change caps to esc
+setxkbmap -option caps:escape
+
+# Load aliases
+if [ -f ~/.aliases ]; then
+    source ~/.aliases
+fi
+
+# Load paths
+if [ -f ~/.paths ]; then
+    source ~/.paths
+fi
+
+# Init starship
+eval "$(starship init zsh)"
+
+# Init zoxide
+eval "$(zoxide init zsh --cmd cd)"

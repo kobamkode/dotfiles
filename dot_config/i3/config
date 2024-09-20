@@ -37,6 +37,12 @@ exec --no-startup-id nm-applet
 # Blueman is the most popular way to manage bluetooth.
 exec --no-startup-id blueman
 
+# Listening internet ardio
+exec --no-startup-id radiotray-ng
+
+# Wallpaper
+exec --no-startup-id feh --bg-scale ~/Downloads/tom-gainor-kDDXnN9ycaU-unsplash.jpg
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -48,7 +54,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec wezterm
 
 # kill focused window
 bindsym $mod+Shift+q kill

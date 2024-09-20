@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PKGS=(git curl tldr neovim tmux gh mpv wezterm gitui chezmoi radiotray-ng)
+PKGS=(git zsh curl tldr fzf neovim tmux gh mpv wezterm gitui chezmoi radiotray-ng podman starship zoxide nerd-fonts)
 GITHUB_USERNAME="kobamkode"
 OS=""
 
@@ -16,16 +16,30 @@ install_pkgs() {
 			echo "Installing $i..."
 			if [[ $OS == "fedora" ]]; then
 				if [[ $i == "wezterm" ]]; then
-					sudo dnf copr enable wezfurlong/wezterm-nightly -y
-					sudo dnf install -y "$i"
-				elif [[ $i == "chezmoi" ]]; then
-					sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
-					sudo mv bin/chezmoi /usr/bin
-					rm -rf bin
-				else
-					sudo dnf install -y "$i"
+					sudo dnf copr enable wezfurlong/$i-nightly -y
+				fi
+				
+				if [[ $i == "starship" ]] || [[ $i == "zoxide" ]]; then
+					sudo dnf copr enable atim/$i -y
 				fi
 
+				if [[ $i == "nerd-fonts" ]]; then
+					sudo dnf copr enable che/$i -y
+				fi
+
+				if [[ $i == "zsh" ]]; then
+					sudo chsh -s $(which zsh) $USER
+					continue
+				fi
+
+				if [[ $i == "chezmoi" ]]; then
+					sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
+					sudo mv bin/chezmoi /usr/bin && rm -rf bin
+					chezmoi update
+					continue
+				fi
+
+				sudo dnf install -y "$i"
 			fi
 		else
 			echo "$i is already installed: $v"
