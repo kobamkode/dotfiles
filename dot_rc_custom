@@ -10,8 +10,9 @@
 # Change caps to esc
 setxkbmap -option caps:escape
 
-# Set editor to vim
+# Set variables
 export EDITOR=vim
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # Init starship
 eval "$(starship init zsh)"

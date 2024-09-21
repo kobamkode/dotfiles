@@ -185,6 +185,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Window
+title_align center
 # for_window [all] title_window_icon yes
 
 # Gaps

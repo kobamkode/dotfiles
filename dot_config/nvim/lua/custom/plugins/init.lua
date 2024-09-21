@@ -2,4 +2,34 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  {
+    'stevearc/oil.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      view_options = {
+        show_hidden = true,
+      },
+    },
+    keys = {
+      { '-', '<CMD>Oil<CR>', desc = 'Open parent directory' },
+    },
+  },
+  {
+    'connordeckers/tmux-navigator.nvim',
+    opts = {
+      enable = true,
+    },
+  },
+  {
+    'ohakutsu/socks-copypath.nvim',
+    config = function()
+      require('socks-copypath').setup()
+    end,
+  },
+  {
+    'yutkat/confirm-quit.nvim',
+    event = 'CmdlineEnter',
+    opts = {},
+  },
+}
