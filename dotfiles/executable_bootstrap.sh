@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PKGS=(git zsh curl tldr fzf neovim tmux gh mpv wezterm gitui chezmoi radiotray-ng podman starship zoxide nerd-fonts)
+PKGS=(git zsh curl tldr fzf neovim tmux gh mpv wezterm gitui chezmoi radiotray-ng podman starship zoxide nerd-fonts rofi)
 GITHUB_USERNAME="kobamkode"
 OS=""
 

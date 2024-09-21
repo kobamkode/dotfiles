@@ -41,7 +41,8 @@ exec --no-startup-id blueman
 exec --no-startup-id radiotray-ng
 
 # Wallpaper
-exec --no-startup-id feh --bg-scale ~/Downloads/tom-gainor-kDDXnN9ycaU-unsplash.jpg
+# exec --no-startup-id feh --bg-scale ~/Downloads/tom-gainor-kDDXnN9ycaU-unsplash.jpg
+exec --no-startup-id ~/.fehbg
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -57,13 +58,16 @@ floating_modifier $mod
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec wezterm
 
+# start a firefox
+bindsym $mod+Shift+Return exec firefox
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#005577' -sf '#EEEEEE' -fn 'monospace-10'"
+# bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#005577' -sf '#EEEEEE' -fn 'monospace-10'"
 # A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
