@@ -1,8 +1,11 @@
+# Put script below in .zshrc only
+# to load zsh-autocomplete plugin after
+# pull https://github.com/marlonrichert/zsh-autocomplete:
+# source ~/Codes/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
 # Put script below in .bashrc / .zshrc
-# to load this .rc_custom
-# if [ -f ~/.rc_custom ]; then
-#     source ~/.rc_custom
-# fi
+# to load this .rc_custom:
+# source ~/.rc_custom
 
 # Change caps to esc
 setxkbmap -option caps:escape
