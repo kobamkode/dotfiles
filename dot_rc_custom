@@ -1,0 +1,22 @@
+# Put script below in .bashrc / .zshrc
+# to load this .rc_custom
+# if [ -f ~/.rc_custom ]; then
+#     source ~/.rc_custom
+# fi
+
+# Change caps to esc
+setxkbmap -option caps:escape
+
+# Set editor to vim
+export EDITOR=vim
+
+# Init starship
+eval "$(starship init zsh)"
+
+# Init zoxide
+eval "$(zoxide init zsh --cmd cd)"
+
+# Aliases
+alias ll="ls -al"
+alias c="chezmoi "
+
