@@ -32,6 +32,10 @@ install_pkgs() {
 					continue
 				fi
 
+				if [[ $i == "tmux" ]]; then
+					git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+				fi
+
 				if [[ $i == "chezmoi" ]]; then
 					sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 					sudo mv bin/chezmoi /usr/bin && rm -rf bin

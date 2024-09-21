@@ -1,7 +1,7 @@
 # Put script below in .zshrc only
 # to load zsh-autocomplete plugin after
-# pull https://github.com/marlonrichert/zsh-autocomplete:
-# source ~/Codes/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# git pull git@github.com:marlonrichert/zsh-autocomplete.git ~/.zsh-autocomplete
+# source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Put script below in .bashrc / .zshrc
 # to load this .rc_custom:
