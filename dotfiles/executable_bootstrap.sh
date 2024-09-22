@@ -3,6 +3,14 @@
 PKGS=(git zsh curl tldr fzf neovim tmux gh mpv wezterm gitui radiotray-ng podman podman-compose starship zoxide nerd-fonts rofi golang)
 OS=""
 
+cleaning() {
+	if [[ -f ~/bin/chezmoi ]]; then
+		sudo mv ~/bin/chezmoi /usr/bin/chezmoi
+	else
+		echo "chezmoi binary not found"
+	fi
+}
+
 install_pkgs() {
 	for i in "${PKGS[@]}"; do
 		if [[ $i == "neovim" ]]; then
@@ -62,3 +70,4 @@ fi
 
 update_os
 install_pkgs
+cleaning
