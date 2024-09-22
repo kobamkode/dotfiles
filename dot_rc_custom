@@ -10,9 +10,9 @@
 # Change caps to esc
 setxkbmap -option caps:escape
 
-# Set variables
-export EDITOR=vim
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+# Variables
+export EDITOR=nvim
+export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
 
 # Init starship
 eval "$(starship init zsh)"
@@ -24,3 +24,5 @@ eval "$(zoxide init zsh --cmd cd)"
 alias ll="ls -al"
 alias c="chezmoi "
 
+# Paths
+export PATH=$HOME/go/bin:$PATH

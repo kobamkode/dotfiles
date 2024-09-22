@@ -3,11 +3,22 @@
 PKGS=(git zsh curl tldr fzf neovim tmux gh mpv wezterm gitui radiotray-ng podman podman-compose starship zoxide nerd-fonts rofi golang)
 OS=""
 
-cleaning() {
-	if [[ -f ~/bin/chezmoi ]]; then
-		sudo mv ~/bin/chezmoi /usr/bin/chezmoi
-	else
-		echo "chezmoi binary not found"
+post_install() {
+	if [[ -e "$HOME/bin/chezmoi" ]]; then
+		sudo mv $HOME/bin/chezmoi /usr/bin/chezmoi
+		rm -rf $HOME/bin
+	fi
+
+	if [[ $SHELL != "/usr/bin/zsh" ]]; then
+		sudo chsh -s $(which zsh) $USER
+	fi
+
+	if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+		git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+	fi
+
+	if [[ -e "/usr/bin/gh"  ]]; then
+		gh extension install dlvhdr/gh-dash
 	fi
 }
 
@@ -32,15 +43,6 @@ install_pkgs() {
 
 				if [[ $i == "nerd-fonts" ]]; then
 					sudo dnf copr enable che/$i -y
-				fi
-
-				if [[ $i == "zsh" ]]; then
-					sudo chsh -s $(which zsh) $USER
-					continue
-				fi
-
-				if [[ $i == "tmux" ]]; then
-					git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 				fi
 
 				sudo dnf install -y "$i"
@@ -70,4 +72,6 @@ fi
 
 update_os
 install_pkgs
-cleaning
+post_install
+
+sudo reboot
