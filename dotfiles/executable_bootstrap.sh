@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PKGS=(git curl tldr neovim tmux fish gh mpv wezterm gitui radiotray-ng podman podman-compose solaar nerd-fonts rofi golang rustup evremap)
+PKGS=(git zsh curl tldr fzf neovim tmux gh mpv wezterm gitui radiotray-ng podman podman-compose starship zoxide nerd-fonts rofi golang)
 OS=""
 
 post_install() {
@@ -9,12 +9,16 @@ post_install() {
 		rm -rf $HOME/bin
 	fi
 
-	if [[ $SHELL != "/usr/bin/fish" ]]; then
-		sudo chsh -s $(which fish) $USER
+	if [[ $SHELL != "/usr/bin/zsh" ]]; then
+		sudo chsh -s $(which zsh) $USER
 	fi
 
 	if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
 		git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+	fi
+
+	if [[ -e "/usr/bin/gh"  ]]; then
+		gh extension install dlvhdr/gh-dash
 	fi
 }
 
@@ -41,20 +45,6 @@ install_pkgs() {
 					sudo dnf copr enable che/$i -y
 				fi
 
-				if [[ $i == "evremap" ]]; then
-					sudo dnf install -y libevdev-devel
-					git clone https://github.com/wez/evremap.git
-					cd evremap
-					cargo build --release
-					sudo cp target/release/evremap /usr/bin/evremap
-					sudo cp /home/mario/dotfiles/logitech-wave-keys.toml /etc/evremap.toml
-					sudo cp evremap.service /usr/lib/systemd/system/
-					sudo systemctl daemon-reload
-					sudo systemctl enable evremap.service
-					sudo systemctl start evremap.service
-					continue
-				fi
-
 				sudo dnf install -y "$i"
 			fi
 		else
@@ -64,18 +54,21 @@ install_pkgs() {
 }
 
 update_os() {
-	if [[ -z $OS ]]; then 
-		if [[ -f /etc/fedora-release ]]; then
-			OS="fedora"
-			sudo dnf -y update
-		else
-			echo "Unsupported OS. Please install $PKGS manually."
-			exit 1
-		fi
-
+	echo "Updating $OS..."
+	if [[ $OS == "fedora" ]]; then
+		sudo dnf -y update
 	fi
 }
 
+if [[ -z $OS ]]; then 
+	if [[ -f /etc/fedora-release ]]; then
+		OS="fedora"
+	else
+		echo "Unsupported OS. Please install $PKGS manually."
+		exit 1
+	fi
+
+fi
 
 update_os
 install_pkgs
