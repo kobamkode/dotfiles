@@ -4,6 +4,14 @@
 -- See the kickstart.nvim README for more information
 return {
   {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'catppuccin-mocha'
+    end,
+  },
+  {
     'stevearc/oil.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {

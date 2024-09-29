@@ -16,6 +16,11 @@ post_install() {
 	if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
 		git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 	fi
+
+	if [[ -e "/usr/bin/evremap" ]] && [[ -e "/usr/lib/systemd/system/evremap.service" ]]; then
+		rm -rf $HOME/evremap $HOME/README.md
+	fi
+
 }
 
 install_pkgs() {
@@ -33,9 +38,9 @@ install_pkgs() {
 					sudo dnf copr enable wezfurlong/$i-nightly -y
 				fi
 				
-				if [[ $i == "starship" ]] || [[ $i == "zoxide" ]]; then
-					sudo dnf copr enable atim/$i -y
-				fi
+				# if [[ $i == "starship" ]] || [[ $i == "zoxide" ]]; then
+				# 	sudo dnf copr enable atim/$i -y
+				# fi
 
 				if [[ $i == "nerd-fonts" ]]; then
 					sudo dnf copr enable che/$i -y
@@ -45,6 +50,8 @@ install_pkgs() {
 					sudo dnf install -y libevdev-devel
 					git clone https://github.com/wez/evremap.git
 					cd evremap
+					rustup-init -y
+					source "$HOME/.cargo/env.fish"
 					cargo build --release
 					sudo cp target/release/evremap /usr/bin/evremap
 					sudo cp /home/mario/dotfiles/logitech-wave-keys.toml /etc/evremap.toml
