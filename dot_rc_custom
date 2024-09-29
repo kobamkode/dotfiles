@@ -15,10 +15,10 @@ export EDITOR=nvim
 export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
 
 # Init starship
-eval "$(starship init zsh)"
+eval "$(starship init fish)"
 
 # Init zoxide
-eval "$(zoxide init zsh --cmd cd)"
+eval "$(zoxide init fish --cmd cd)"
 
 # Aliases
 alias ll="ls -al"
