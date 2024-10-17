@@ -40,4 +40,23 @@ return {
     event = 'CmdlineEnter',
     opts = {},
   },
+  {
+    'zk-org/zk-nvim',
+    config = function()
+      require('zk').setup {
+        -- See Setup section below
+      }
+    end,
+  },
+  {
+    'jackieaskins/cmp-emmet',
+    build = 'npm run release',
+    config = function()
+      require('cmp').setup {
+        sources = {
+          { name = 'emmet' },
+        },
+      }
+    end,
+  },
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PKGS=(git curl tldr neovim tmux fish gh mpv wezterm gitui radiotray-ng podman podman-compose solaar nerd-fonts rofi golang rustup evremap)
+PKGS=(git curl tldr neovim tmux fish gh mpv wezterm gitui radiotray-ng podman podman-compose solaar nerd-fonts rofi golang rustup evremap blueman libgle-devel flatpak)
 OS=""
 
 post_install() {
@@ -16,6 +16,11 @@ post_install() {
 	if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
 		git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 	fi
+
+	if [[ -e "/usr/bin/flatpak" ]]; then
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	fi
+
 
 	if [[ -e "/usr/bin/evremap" ]] && [[ -e "/usr/lib/systemd/system/evremap.service" ]]; then
 		rm -rf $HOME/evremap $HOME/README.md
