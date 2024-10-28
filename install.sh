@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PKGS=(git curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts rofi golang rustup evremap blueman libgle-devel flatpak)
+PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts rofi golang rustup evremap blueman libgle-devel flatpak)
 OS=""
 
 update_os() {
@@ -82,6 +82,24 @@ install_pkgs() {
 }
 
 post_install() {
+	if [[ -e "/usr/bin/nvim" ]]; then
+		git clone git@github.com:dam9000/kickstart-modular.nvim.git ~/.config/nvim
+		rm -rf ~/.config/nvim/lua
+	fi
+	
+	if [[ -e "/usr/bin/stow" ]]; then
+		stow dunst
+		stow fish
+		stow gitui
+		stow i3
+		stow i3status
+		stow mpv
+		stow nvim
+		stow radiotray-ng
+		stow solaar
+		stow wezterm
+	fi
+
 	if [[ -e "/usr/bin/flatpak" ]]; then
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	fi
