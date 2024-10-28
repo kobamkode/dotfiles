@@ -1,0 +1,15 @@
+[
+   {
+      "group": "My Radio",
+      "stations": [
+         {
+            "name": "Bossa Beyond",
+            "url": "https://somafm.com/bossa32.pls"
+         },
+         {
+            "name": "DEFCON",
+            "url": "https://somafm.com/defcon32.pls"
+         }
+      ]
+   }
+]
