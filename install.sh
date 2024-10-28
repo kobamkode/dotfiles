@@ -34,6 +34,7 @@ install_pkgs() {
 					wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
 					sudo rm -rf /usr/local/go
 					sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
+					sudo rm -rf *.tar.gz
 					continue
 				fi
 
@@ -55,6 +56,7 @@ install_pkgs() {
 						docker-compose-plugin-2.29.7-1.fc40.x86_64.rpm
 					sudo systemctl enable docker 
 					sudo systemctl start docker 
+					sudo rm -rf *.rpm
 					continue
 				fi
 
