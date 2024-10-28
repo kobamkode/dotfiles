@@ -1,5 +1,5 @@
 set fish_greeting
-set fish_add_path /usr/local/go/bin
+set -a fish_user_paths /usr/local/go/bin
 
 alias ls="ls -al --color"
 alias fisource="source ~/.config/fish/config.fish"
