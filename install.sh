@@ -3,6 +3,19 @@
 PKGS=(git curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts rofi golang rustup evremap blueman libgle-devel flatpak)
 OS=""
 
+update_os() {
+	if [[ -z $OS ]]; then 
+		if [[ -f /etc/fedora-release ]]; then
+			OS="fedora"
+			sudo dnf -y update
+		else
+			echo "Unsupported OS."
+			exit 1
+		fi
+
+	fi
+}
+
 install_pkgs() {
 	for i in "${PKGS[@]}"; do
 		if [[ $i == "neovim" ]]; then
@@ -68,21 +81,20 @@ install_pkgs() {
 	done
 }
 
-update_os() {
-	if [[ -z $OS ]]; then 
-		if [[ -f /etc/fedora-release ]]; then
-			OS="fedora"
-			sudo dnf -y update
-		else
-			echo "Unsupported OS."
-			exit 1
-		fi
-
+post_install() {
+	if [[ -e "/usr/bin/flatpak" ]]; then
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	fi
+ 
+	if [[ $SHELL != "/usr/bin/fish" ]]; then
+		sudo chsh -s $(which fish) $USER
 	fi
 }
 
 
+
 update_os
 install_pkgs
+post_install
 
 sudo reboot 
