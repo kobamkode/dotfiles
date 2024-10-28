@@ -38,7 +38,7 @@ install_pkgs() {
 				fi
 
 				if [[ $i == "rustup" ]]; then
-					curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain stable -y
+					curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain stable --no-modify-path -y
 					continue
 				fi
 
