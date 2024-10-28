@@ -85,13 +85,13 @@ post_install() {
 	if [[ -e "/usr/bin/stow" ]]; then
 		STOW=(dunst fish gitui i3 i3status mpv nvim radiotray-ng solaar wezterm)
 		for i in "${STOW[@]}"; do
-			if [[ -d "~/.config/$i" ]]; then
-				rm -rf ~/.config/$i
+			if [[ -d "$HOME/.config/$i" ]]; then
+				rm -rf $HOME/.config/$i
 			fi
 
 			if [[ $i == "nvim" ]]; then
-				git clone git@github.com:dam9000/kickstart-modular.nvim.git ~/.config/nvim
-				rm -rf ~/.config/nvim/lua
+				git clone https://github.com/dam9000/kickstart-modular.nvim.git $HOME/.config/nvim
+				rm -rf $HOME/.config/nvim/lua
 			fi
 
 			stow $i
