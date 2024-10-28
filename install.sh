@@ -73,7 +73,7 @@ install_pkgs() {
 					continue
 				fi
 
-				sudo dnf install -y "$i"
+				sudo dnf install -y $i
 			fi
 		else
 			echo "$i is already installed: $v"
@@ -82,22 +82,20 @@ install_pkgs() {
 }
 
 post_install() {
-	if [[ -e "/usr/bin/nvim" ]]; then
-		git clone git@github.com:dam9000/kickstart-modular.nvim.git ~/.config/nvim
-		rm -rf ~/.config/nvim/lua
-	fi
-	
 	if [[ -e "/usr/bin/stow" ]]; then
-		stow dunst
-		stow fish
-		stow gitui
-		stow i3
-		stow i3status
-		stow mpv
-		stow nvim
-		stow radiotray-ng
-		stow solaar
-		stow wezterm
+		STOW=(dunst fish gitui i3 i3status mpv nvim radiotray-ng solaar wezterm)
+		for i in "${STOW[@]}"; do
+			if [[ -d "~/.config/$i" ]]; then
+				rm -rf ~/.config/$i
+			fi
+
+			if [[ $i == "nvim" ]]; then
+				git clone git@github.com:dam9000/kickstart-modular.nvim.git ~/.config/nvim
+				rm -rf ~/.config/nvim/lua
+			fi
+
+			stow $i
+		done
 	fi
 
 	if [[ -e "/usr/bin/flatpak" ]]; then
