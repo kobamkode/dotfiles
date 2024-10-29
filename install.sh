@@ -6,6 +6,9 @@ OS=""
 update_os() {
 	if [[ -z $OS ]]; then 
 		if [[ -f /etc/fedora-release ]]; then
+			echo "=============================="
+			echo "Begin update OS..."
+			echo "=============================="
 			OS="fedora"
 			sudo dnf -y update
 		else
@@ -83,26 +86,38 @@ install_pkgs() {
 
 post_install() {
 	if [[ -e "/usr/bin/stow" ]]; then
-		STOW=(dunst fish gitui i3 i3status mpv nvim radiotray-ng solaar wezterm)
+		echo "=============================="
+		echo "Begin stow..."
+		echo "=============================="
+		STOW=(dunst fish gitui i3 i3status mpv nvim rofi radiotray-ng solaar wezterm)
 		for i in "${STOW[@]}"; do
 			if [[ -d "$HOME/.config/$i" ]]; then
 				rm -rf $HOME/.config/$i
+				echo "remove existing ~/.config/$i"
 			fi
 
 			if [[ $i == "nvim" ]]; then
 				git clone https://github.com/dam9000/kickstart-modular.nvim.git $HOME/.config/nvim
 				rm -rf $HOME/.config/nvim/lua
+				echo "clone & setup ~/.config/$i"
 			fi
 
 			stow $i
+			echo "stow ~/.config/$i"
 		done
 	fi
 
 	if [[ -e "/usr/bin/flatpak" ]]; then
+		echo "=============================="
+		echo "Installing flathub..."
+		echo "=============================="
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	fi
  
 	if [[ $SHELL != "/usr/bin/fish" ]]; then
+		echo "=============================="
+		echo "Change shell to fish shell..."
+		echo "=============================="
 		sudo chsh -s $(which fish) $USER
 	fi
 }
