@@ -216,7 +216,7 @@ bindsym $mod+r mode "resize"
 exec --no-startup-id radiotray-ng
 
 # Gammastep
-exec --no-startup-id gammastep -l -6.365318:106.705858
+exec --no-startup-id wlsunset -l -6.3 -L 106.7
 
 # Clamshell Mode (Lid closed)
 set $laptop LVDS-1

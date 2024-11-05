@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 
-PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts golang rustup evremap blueman libgle-devel flatpak gammastep)
+PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts golang rustup evremap blueman libgle-devel flatpak)
 OS=""
 SESSION=""
 
