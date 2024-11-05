@@ -1,15 +1,21 @@
 #!/usr/bin/bash
 
-PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts rofi golang rustup evremap blueman libgle-devel flatpak)
+
+PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts golang rustup evremap blueman libgle-devel flatpak gammastep)
 OS=""
+SESSION=""
 
 update_os() {
-	if [[ -z $OS ]]; then 
+	if [[ -z $OS ]]; then
 		if [[ -f /etc/fedora-release ]]; then
 			echo "=============================="
 			echo "Begin update OS..."
 			echo "=============================="
 			OS="fedora"
+			if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+				SESSION="wayland"
+			fi
+			
 			sudo dnf -y update
 		else
 			echo "Unsupported OS."
@@ -35,7 +41,7 @@ install_pkgs() {
 				if [[ $i == "wezterm" ]]; then
 					sudo dnf copr enable wezfurlong/$i-nightly -y
 				fi
-				
+
 				if [[ $i == "nerd-fonts" ]]; then
 					sudo dnf copr enable che/$i -y
 				fi
@@ -70,8 +76,8 @@ install_pkgs() {
 						docker-ce-27.3.1-1.fc40.x86_64.rpm \
 						docker-buildx-plugin-0.17.1-1.fc40.x86_64.rpm \
 						docker-compose-plugin-2.29.7-1.fc40.x86_64.rpm
-					sudo systemctl enable docker 
-					sudo systemctl start docker 
+					sudo systemctl enable docker
+					sudo systemctl start docker
 					sudo rm -rf *.rpm
 					continue
 				fi
@@ -89,7 +95,13 @@ post_install() {
 		echo "=============================="
 		echo "Begin stow..."
 		echo "=============================="
-		STOW=(dunst fish gitui i3 i3status mpv nvim rofi radiotray-ng solaar wezterm)
+
+		if [[ $SESSION == "wayland" ]]; then
+			STOW=(fish gitui mpv nvim rofi radiotray-ng solaar wezterm)
+		else
+			STOW=(dunst fish gitui i3 i3status mpv nvim rofi radiotray-ng solaar wezterm)
+		fi
+
 		for i in "${STOW[@]}"; do
 			if [[ -d "$HOME/.config/$i" ]]; then
 				rm -rf $HOME/.config/$i
@@ -113,7 +125,7 @@ post_install() {
 		echo "=============================="
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	fi
- 
+
 	if [[ $SHELL != "/usr/bin/fish" ]]; then
 		echo "=============================="
 		echo "Change shell to fish shell..."
@@ -128,4 +140,4 @@ update_os
 install_pkgs
 post_install
 
-sudo reboot 
+sudo reboot
