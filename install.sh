@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 
-PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts golang rustup evremap blueman libgle-devel flatpak)
+PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
 OS=""
 SESSION=""
 
@@ -44,12 +44,6 @@ install_pkgs() {
 
 				if [[ $i == "nerd-fonts" ]]; then
 					sudo dnf copr enable che/$i -y
-				fi
-
-				if [[ $i == "evremap" ]]; then
-					sudo dnf install -y libevdev-devel
-					git clone https://github.com/wez/evremap.git
-					continue
 				fi
 
 				if [[ $i == "golang" ]]; then
@@ -97,7 +91,7 @@ post_install() {
 		echo "=============================="
 
 		if [[ $SESSION == "wayland" ]]; then
-			STOW=(fish gitui mpv nvim rofi radiotray-ng solaar wezterm)
+			STOW=(dunst fish gitui sway swaylock waybar mpv nvim rofi radiotray-ng solaar wezterm)
 		else
 			STOW=(dunst fish gitui i3 i3status mpv nvim rofi radiotray-ng solaar wezterm)
 		fi
@@ -145,8 +139,6 @@ post_install() {
 		sudo systemctl start evremap.service
 	fi
 }
-
-
 
 update_os
 install_pkgs
