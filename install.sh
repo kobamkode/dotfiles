@@ -132,6 +132,18 @@ post_install() {
 		echo "=============================="
 		sudo chsh -s $(which fish) $USER
 	fi
+
+	if [[ -e "$PWD/evremap/evremap" ]]; then
+		echo "=============================="
+		echo "Installing evremap..."
+		echo "=============================="
+		sudo cp $PWD/evremap/evremap /usr/bin/evremap
+		sudo cp $PWD/evremap/logitech-wave-keys.toml /etc/evremap.toml
+		sudo cp $PWD/evremap/evremap.service /usr/lib/systemd/system/
+		sudo systemctl daemon-reload
+		sudo systemctl enable evremap.service
+		sudo systemctl start evremap.service
+	fi
 }
 
 
