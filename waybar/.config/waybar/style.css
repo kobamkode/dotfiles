@@ -14,7 +14,7 @@
 }
 
 #workspaces {
-  /*border-radius: 1rem;*/
+  border-radius: 0.5rem;
   margin: 5px;
   background-color: @surface0;
   margin-left: 0.8rem;
@@ -22,18 +22,18 @@
 
 #workspaces button {
   color: @lavender;
-  /*border-radius: 1rem;*/
+  border-radius: 0.5rem;
   padding: 0.4rem;
 }
 
 #workspaces button.active {
   color: @sky;
-  /*border-radius: 1rem;*/
+  border-radius: 0.5rem;
 }
 
 #workspaces button:hover {
   color: @sapphire;
-  /*border-radius: 1rem;*/
+  border-radius: 0.5rem;
 }
 
 #custom-music,
@@ -52,7 +52,7 @@
 
 #clock {
   color: @blue;
-  /*border-radius: 0px 1rem 1rem 0px;*/
+  border-radius: 0.5rem;
   /*margin-right: 1rem;*/
 }
 
@@ -78,11 +78,12 @@
 
 #idle_inhibitor {
   color: @maroon;
+  border-radius: 0.5rem;
 }
 
 #pulseaudio {
   color: @maroon;
-  /*border-radius: 1rem 0px 0px 1rem;*/
+  border-radius: 0.5rem;
   /*margin-left: 1rem;*/
   margin-right: 0.8rem;
 }
@@ -104,6 +105,6 @@
 }
 
 #tray {
+  border-radius: 0.5rem;
   /*margin-right: 1rem;*/
-  /*border-radius: 1rem;*/
 }

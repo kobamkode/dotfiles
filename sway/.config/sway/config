@@ -147,6 +147,10 @@ output * bg /home/mario/Pictures/1371030.png fill
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    assign [app_id="org.wezfurlong.wezterm"] workspace 1
+    assign [app_id="org.mozilla.firefox"] workspace 2
+
 #
 # Layout stuff:
 #
@@ -214,6 +218,8 @@ bindsym $mod+r mode "resize"
 
 # Listening internet radio
 exec --no-startup-id radiotray-ng
+exec firefox
+exec wezterm
 
 # Gammastep
 exec --no-startup-id wlsunset -l -6.3 -L 106.7
