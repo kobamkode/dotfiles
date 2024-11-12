@@ -73,6 +73,7 @@ install_pkgs() {
 					sudo systemctl enable docker
 					sudo systemctl start docker
 					sudo rm -rf *.rpm
+					sudo usermod -aG docker $USER
 					continue
 				fi
 

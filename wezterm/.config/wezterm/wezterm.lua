@@ -5,18 +5,18 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- config.window_decorations = "RESIZE"
 config.color_scheme = "Catppuccin Mocha"
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 10.7
 config.line_height = 1.0
-config.hide_tab_bar_if_only_one_tab = false
-config.prefer_to_spawn_tabs = true
+config.hide_tab_bar_if_only_one_tab = true
+config.prefer_to_spawn_tabs = false
 config.use_fancy_tab_bar = false
 config.show_close_tab_button_in_tabs = true
+config.disable_default_key_bindings = true
 
 -- tmux
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
+config.leader = { key = "a", mods = "ALT", timeout_milliseconds = 2000 }
 config.keys = {
 	{
 		mods = "LEADER",
@@ -69,6 +69,27 @@ config.keys = {
 		action = wezterm.action.ActivatePaneDirection("Right"),
 	},
 	{
+		mods = "CTRL",
+		key = "LeftArrow",
+		action = wezterm.action.ActivatePaneDirection("Left"),
+	},
+	{
+		mods = "CTRL",
+		key = "DownArrow",
+		action = wezterm.action.ActivatePaneDirection("Down"),
+	},
+	{
+		mods = "CTRL",
+		key = "UpArrow",
+		action = wezterm.action.ActivatePaneDirection("Up"),
+	},
+	{
+		mods = "CTRL",
+		key = "RightArrow",
+		action = wezterm.action.ActivatePaneDirection("Right"),
+	},
+	{ key = "n", mods = "CTRL", action = wezterm.action.RotatePanes("Clockwise") },
+	{
 		mods = "LEADER",
 		key = "LeftArrow",
 		action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
@@ -87,6 +108,11 @@ config.keys = {
 		mods = "LEADER",
 		key = "UpArrow",
 		action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
+	},
+	{
+		mods = "CTRL",
+		key = "z",
+		action = wezterm.action.TogglePaneZoomState,
 	},
 }
 
