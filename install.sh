@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 
-PKGS=(git stow curl tldr neovim fish gh mpv wezterm gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
+PKGS=(git stow curl tldr neovim fish gh mpv rbw wezterm rofi gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
 OS=""
 SESSION=""
 
@@ -14,6 +14,10 @@ update_os() {
 			OS="fedora"
 			if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
 				SESSION="wayland"
+			fi
+
+			if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
+				SESSION="x11"
 			fi
 			
 			sudo dnf -y update
@@ -85,6 +89,15 @@ install_pkgs() {
 	done
 }
 
+rpm_fusion() {
+	sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+		https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+	sudo dnf update -y
+	sudo dnf install xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda
+	echo "Wait until the kmod has been built. This can take up to 5 minutes on some systems"
+	sleep 5m
+}
+
 post_install() {
 	if [[ -e "/usr/bin/stow" ]]; then
 		echo "=============================="
@@ -144,5 +157,6 @@ post_install() {
 update_os
 install_pkgs
 post_install
+rpm_fusion
 
 sudo reboot

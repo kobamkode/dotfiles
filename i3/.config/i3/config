@@ -113,7 +113,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -194,7 +194,7 @@ title_align center
 # for_window [all] title_window_icon yes
 
 # Gaps
-gaps inner 5
+gaps inner 10
 # smart_gaps on
 
 # class                 border  bground text    indicator child_border
@@ -210,7 +210,9 @@ client.background       #1e1e2e
 # finds out, if available)
 bar {
   position top
-  font pango:monospace 8
+  font pango:monospace 10
+  tray_padding 5
+  padding 2px 0
 
   colors {
     background          #1e1e2e
