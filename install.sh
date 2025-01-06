@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 
-PKGS=(git stow curl tldr neovim fish gh mpv rbw wezterm rofi gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
+PKGS=(git stow curl tldr neovim fish gh mpv wezterm ghostty rofi gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
 OS=""
 SESSION=""
 
@@ -46,8 +46,13 @@ install_pkgs() {
 					sudo dnf copr enable wezfurlong/$i-nightly -y
 				fi
 
+				if [[ $i == "ghostty" ]]; then
+					sudo dnf copr enable pgdev/$i -y
+				fi
+
 				if [[ $i == "nerd-fonts" ]]; then
 					sudo dnf copr enable che/$i -y
+					$i = "jetbrains-mono-fonts"
 				fi
 
 				if [[ $i == "golang" ]]; then
@@ -87,15 +92,6 @@ install_pkgs() {
 			echo "$i is already installed: $v"
 		fi
 	done
-}
-
-rpm_fusion() {
-	sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-		https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-	sudo dnf update -y
-	sudo dnf install xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda
-	echo "Wait until the kmod has been built. This can take up to 5 minutes on some systems"
-	sleep 5m
 }
 
 post_install() {
@@ -157,6 +153,5 @@ post_install() {
 update_os
 install_pkgs
 post_install
-rpm_fusion
 
 sudo reboot
