@@ -1,12 +1,16 @@
 shell-integration = fish
+shell-integration-features = cursor,sudo,title
 theme = catppuccin-mocha
 font-family = JetBrains Mono
 font-size = 10.5
 mouse-hide-while-typing = true
 copy-on-select = clipboard
 window-decoration = false
-gtk-titlebar = true
-window-padding-balance = true
+cursor-style = block
+gtk-single-instance = false
+gtk-wide-tabs = false
+adw-toolbar-style = flat
+custom-shader-animation = false
 
 keybind = alt+a>r=reload_config
 keybind = alt+a>x=close_surface

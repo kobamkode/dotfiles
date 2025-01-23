@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 
-
 PKGS=(git stow curl tldr neovim fish gh mpv wezterm ghostty rofi gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
 OS=""
 SESSION=""
@@ -101,9 +100,9 @@ post_install() {
 		echo "=============================="
 
 		if [[ $SESSION == "wayland" ]]; then
-			STOW=(dunst fish gitui sway swaylock waybar mpv nvim rofi radiotray-ng solaar wezterm)
+			STOW=(dunst fish gitui sway swaylock waybar mpv rofi radiotray-ng solaar wezterm)
 		else
-			STOW=(dunst fish gitui i3 i3status mpv nvim rofi radiotray-ng solaar wezterm)
+			STOW=(dunst fish gitui i3 i3status mpv rofi radiotray-ng solaar wezterm)
 		fi
 
 		for i in "${STOW[@]}"; do
@@ -112,15 +111,17 @@ post_install() {
 				echo "remove existing ~/.config/$i"
 			fi
 
-			if [[ $i == "nvim" ]]; then
-				git clone https://github.com/dam9000/kickstart-modular.nvim.git $HOME/.config/nvim
-				rm -rf $HOME/.config/nvim/lua
-				echo "clone & setup ~/.config/$i"
-			fi
-
 			stow $i
 			echo "stow ~/.config/$i"
 		done
+	fi
+
+
+	if [[ -e "/usr/bin/nvim" ]]; then
+		echo "=============================="
+		echo "Kickstart Neovim..."
+		echo "=============================="
+		git clone https://github.com/kobamkode/kickstart-modular.nvim.git $HOME/.config/nvim
 	fi
 
 	if [[ -e "/usr/bin/flatpak" ]]; then
