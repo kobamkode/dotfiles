@@ -1,15 +1,32 @@
 [
-   {
-      "group": "My Radio",
-      "stations": [
-         {
-            "name": "Bossa Beyond",
-            "url": "https://somafm.com/bossa32.pls"
-         },
-         {
-            "name": "DEFCON",
-            "url": "https://somafm.com/defcon32.pls"
-         }
-      ]
-   }
+	{
+		"group" : "My Radio",
+		"stations" : 
+		[
+			{
+				"name" : "Bossa Beyond",
+				"url" : "https://somafm.com/bossa64.pls"
+			},
+			{
+				"name" : "DEFCON",
+				"url" : "https://somafm.com/defcon64.pls"
+			},
+			{
+				"name" : "Classics",
+				"url" : "https://ec3.yesstreaming.net:3625/stream"
+			},
+			{
+				"name" : "Lush",
+				"url" : "https://somafm.com/lush64.pls"
+			},
+			{
+				"name" : "Underground 80s",
+				"url" : "https://somafm.com/u80s64.pls"
+			}
+		]
+	},
+	{
+		"group" : "root",
+		"stations" : []
+	}
 ]
