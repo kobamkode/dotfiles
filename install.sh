@@ -54,33 +54,18 @@ install_pkgs() {
 					$i = "jetbrains-mono-fonts"
 				fi
 
-				if [[ $i == "golang" ]]; then
-					wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
-					sudo rm -rf /usr/local/go
-					sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
-					sudo rm -rf *.tar.gz
-					continue
-				fi
-
 				if [[ $i == "rustup" ]]; then
 					curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain stable --no-modify-path -y
 					continue
 				fi
 
 				if [[ $i == "docker" ]]; then
-					wget https://download.docker.com/linux/fedora/40/x86_64/stable/Packages/docker-ce-27.3.1-1.fc40.x86_64.rpm
-					wget https://download.docker.com/linux/fedora/40/x86_64/stable/Packages/docker-ce-cli-27.3.1-1.fc40.x86_64.rpm
-					wget https://download.docker.com/linux/fedora/40/x86_64/stable/Packages/containerd.io-1.7.22-3.1.fc40.x86_64.rpm
-					wget https://download.docker.com/linux/fedora/40/x86_64/stable/Packages/docker-buildx-plugin-0.17.1-1.fc40.x86_64.rpm
-					wget https://download.docker.com/linux/fedora/40/x86_64/stable/Packages/docker-compose-plugin-2.29.7-1.fc40.x86_64.rpm
-					sudo dnf install -y containerd.io-1.7.22-3.1.fc40.x86_64.rpm \
-						docker-ce-cli-27.3.1-1.fc40.x86_64.rpm \
-						docker-ce-27.3.1-1.fc40.x86_64.rpm \
-						docker-buildx-plugin-0.17.1-1.fc40.x86_64.rpm \
-						docker-compose-plugin-2.29.7-1.fc40.x86_64.rpm
+					sudo dnf -y install dnf-plugins-core
+					sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo 
+					sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
 					sudo systemctl enable docker
 					sudo systemctl start docker
-					sudo rm -rf *.rpm
 					sudo usermod -aG docker $USER
 					continue
 				fi

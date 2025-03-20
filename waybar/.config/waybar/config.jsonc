@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad"],
     "modules-center": ["clock"],
-    "modules-right": ["idle_inhibitor", "tray", "pulseaudio", "custom/power"],
+    "modules-right": ["idle_inhibitor", "battery", "tray", "pulseaudio", "custom/power"],
     "wlr/workspaces": {
          "disable-scroll": true,
          "sort-by-name": true,

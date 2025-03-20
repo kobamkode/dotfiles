@@ -18,7 +18,7 @@ set $right l
 
 # Your preferred terminal emulator
 # Recommends: foot
-set $term wezterm
+set $term ghostty
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -36,12 +36,12 @@ set $menu $rofi_cmd -show drun
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /home/mario/Pictures/1371030.png fill
+# output * bg /home/mario/Pictures/1371030.png fill
 #
 # Example configuration:
 #
-  output LVDS-1 resolution 1366x768 position 0,0
-  output HDMI-A-1 resolution 1920x1080 position 1366,0
+# output LVDS-1 resolution 1366x768 position 0,0
+# output HDMI-A-1 resolution 1920x1080 position 1366,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -49,10 +49,10 @@ output * bg /home/mario/Pictures/1371030.png fill
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -71,6 +71,12 @@ output * bg /home/mario/Pictures/1371030.png fill
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+input "6127:24757:Chicony_ThinkPad_X1_Tablet_Thin_Keyboard_Gen_3" {
+  dwt enabled
+  tap enabled
+  natural_scroll enabled
+  middle_emulation enabled
+}
 
 ### Key bindings
 #
@@ -150,13 +156,13 @@ output * bg /home/mario/Pictures/1371030.png fill
 
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-    workspace 1 output HDMI-A-1
-    workspace 2 output HDMI-A-1
-    workspace 3 output HDMI-A-1
-
-    assign [app_id="org.wezfurlong.wezterm"] workspace 1
-    assign [app_id="org.mozilla.firefox"] workspace 2
-    assign [class="obsidian"] workspace 3
+    # workspace 1 output HDMI-A-1
+    # workspace 2 output HDMI-A-1
+    # workspace 3 output HDMI-A-1
+    #
+    # assign [app_id="org.wezfurlong.wezterm"] workspace 1
+    # assign [app_id="org.mozilla.firefox"] workspace 2
+    # assign [class="obsidian"] workspace 3
 
 #
 # Layout stuff:
@@ -225,20 +231,15 @@ bindsym $mod+r mode "resize"
 
 # Listening internet radio
 exec --no-startup-id radiotray-ng
-exec firefox
-exec wezterm
-# exec flatpak run com.todoist.Todoist  
-exec flatpak run md.obsidian.Obsidian
 
 # Gammastep
 exec --no-startup-id wlsunset -l -6.3 -L 106.7
 
 # Clamshell Mode (Lid closed)
-set $laptop LVDS-1
-bindswitch --reload --locked lid:on output $laptop disable
-bindswitch --reload --locked lid:off output $laptop enable
-
-exec_always ./clamshell.sh
+# set $laptop LVDS-1
+# bindswitch --reload --locked lid:on output $laptop disable
+# bindswitch --reload --locked lid:off output $laptop enable
+# exec_always ./clamshell.sh
 
 # Theme
 include catppuccin-mocha
