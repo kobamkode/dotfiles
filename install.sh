@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PKGS=(git stow curl tldr neovim fish gh mpv wezterm ghostty rofi gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
+PKGS=(git stow curl tldr neovim tmux fish gh mpv ghostty rofi gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
 OS=""
 SESSION=""
 
@@ -41,10 +41,6 @@ install_pkgs() {
 			echo "Installing $i..."
 			echo "=============================="
 			if [[ $OS == "fedora" ]]; then
-				if [[ $i == "wezterm" ]]; then
-					sudo dnf copr enable wezfurlong/$i-nightly -y
-				fi
-
 				if [[ $i == "ghostty" ]]; then
 					sudo dnf copr enable pgdev/$i -y
 				fi
@@ -78,16 +74,16 @@ install_pkgs() {
 	done
 }
 
-post_install() {
+configure_pkgs() {
 	if [[ -e "/usr/bin/stow" ]]; then
 		echo "=============================="
 		echo "Begin stow..."
 		echo "=============================="
 
 		if [[ $SESSION == "wayland" ]]; then
-			STOW=(dunst fish gitui sway swaylock waybar mpv rofi radiotray-ng solaar wezterm)
+			STOW=(dunst fish gitui sway swaylock waybar mpv rofi radiotray-ng solaar ghostty)
 		else
-			STOW=(dunst fish gitui i3 i3status mpv rofi radiotray-ng solaar wezterm)
+			STOW=(dunst fish gitui i3 i3status mpv rofi radiotray-ng solaar ghostty)
 		fi
 
 		for i in "${STOW[@]}"; do
@@ -138,6 +134,6 @@ post_install() {
 
 update_os
 install_pkgs
-post_install
+configure_pkgs
 
 sudo reboot
