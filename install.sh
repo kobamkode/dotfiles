@@ -81,9 +81,9 @@ configure_pkgs() {
 		echo "=============================="
 
 		if [[ $SESSION == "wayland" ]]; then
-			STOW=(dunst fish gitui sway swaylock waybar mpv rofi radiotray-ng solaar ghostty)
+			STOW=(dunst fish gitui sway swaylock waybar mpv rofi radiotray-ng solaar ghostty tmux)
 		else
-			STOW=(dunst fish gitui i3 i3status mpv rofi radiotray-ng solaar ghostty)
+			STOW=(dunst fish gitui i3 i3status mpv rofi radiotray-ng solaar ghostty tmux)
 		fi
 
 		for i in "${STOW[@]}"; do
