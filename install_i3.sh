@@ -1,30 +1,21 @@
 #!/usr/bin/bash
 
 PKGS=(git stow curl tldr neovim tmux fish gh mpv ghostty rofi gitui docker radiotray-ng solaar nerd-fonts golang rustup blueman libgle-devel libevdev-devel flatpak)
-OS=""
 SESSION=""
 
 update_os() {
-	if [[ -z $OS ]]; then
-		if [[ -f /etc/fedora-release ]]; then
-			echo "=============================="
-			echo "Begin update OS..."
-			echo "=============================="
-			OS="fedora"
-			if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
-				SESSION="wayland"
-			fi
-
-			if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
-				SESSION="x11"
-			fi
-			
-			sudo dnf -y update
-		else
-			echo "Unsupported OS."
-			exit 1
+	if [[ -f /etc/fedora-release ]]; then
+		echo "=============================="
+		echo "Begin update OS..."
+		echo "=============================="
+		if [[ "$XDG_SESSION_DESKTOP" == "x11" ]]; then
+			SESSION="x11"
 		fi
-
+		
+		sudo dnf -y update
+	else
+		echo "Unsupported OS."
+		exit 1
 	fi
 }
 
@@ -40,34 +31,32 @@ install_pkgs() {
 			echo "=============================="
 			echo "Installing $i..."
 			echo "=============================="
-			if [[ $OS == "fedora" ]]; then
-				if [[ $i == "ghostty" ]]; then
-					sudo dnf copr enable pgdev/$i -y
-				fi
-
-				if [[ $i == "nerd-fonts" ]]; then
-					sudo dnf copr enable che/$i -y
-					$i = "jetbrains-mono-fonts"
-				fi
-
-				if [[ $i == "rustup" ]]; then
-					curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain stable --no-modify-path -y
-					continue
-				fi
-
-				if [[ $i == "docker" ]]; then
-					sudo dnf -y install dnf-plugins-core
-					sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo 
-					sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-					sudo systemctl enable docker
-					sudo systemctl start docker
-					sudo usermod -aG docker $USER
-					continue
-				fi
-
-				sudo dnf install -y $i
+			if [[ $i == "ghostty" ]]; then
+				sudo dnf copr enable pgdev/$i -y
 			fi
+
+			if [[ $i == "nerd-fonts" ]]; then
+				sudo dnf copr enable che/$i -y
+				$i = "jetbrains-mono-fonts"
+			fi
+
+			if [[ $i == "rustup" ]]; then
+				curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain stable --no-modify-path -y
+				continue
+			fi
+
+			if [[ $i == "docker" ]]; then
+				sudo dnf -y install dnf-plugins-core
+				sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo 
+				sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+				sudo systemctl enable docker
+				sudo systemctl start docker
+				sudo usermod -aG docker $USER
+				continue
+			fi
+
+			sudo dnf install -y $i
 		else
 			echo "$i is already installed: $v"
 		fi
@@ -80,9 +69,7 @@ configure_pkgs() {
 		echo "Begin stow..."
 		echo "=============================="
 
-		if [[ $SESSION == "wayland" ]]; then
-			STOW=(dunst fish gitui sway swaylock waybar mpv rofi radiotray-ng solaar ghostty tmux)
-		else
+		if [[ $SESSION == "x11" ]]; then
 			STOW=(dunst fish gitui i3 i3status mpv rofi radiotray-ng solaar ghostty tmux)
 		fi
 
