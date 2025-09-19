@@ -1,97 +1,113 @@
 @import "mocha.css";
 
 * {
-  font-family: JetBrainMono Nerd Font;
-  font-size: 13px;
-  font-weight: bold;
-  min-height: 0;
+    font-family: JetBrainsMono Nerd Font Propo;
+    font-size: 13px;
 }
 
-#waybar {
-  background: transparent;
-  color: @text;
-  margin: 5px 5px;
+window#waybar {
+    background-color: transparent;
+    color: @text;
+    transition-property: background-color;
+    transition-duration: .5s;
 }
 
-#workspaces {
-  border-radius: 0.5rem;
-  margin: 5px;
-  background-color: @surface0;
-  margin-left: 0.8rem;
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#pulseaudio:hover {
+    background-color: #a37800;
 }
 
 #workspaces button {
-  color: @lavender;
-  border-radius: 0.5rem;
-  padding: 0.4rem;
-}
-
-#workspaces button.active {
-  color: @sky;
-  border-radius: 0.5rem;
+    padding: 0 5px;
+    background-color: transparent;
+    color: @text;
 }
 
 #workspaces button:hover {
-  color: @sapphire;
-  border-radius: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
 }
 
-#custom-music,
-#idle_inhibitor,
-#tray,
-#backlight,
+#workspaces button.focused {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
 #clock,
 #battery,
+#backlight,
+#network,
 #pulseaudio,
-#custom-lock,
-#temperature,
-#custom-power {
-  background-color: @surface0;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
-  border-radius: 0.5rem;
+#bluetooth,
+#power-profiles-daemon {
+    padding: 0 10px;
+    color: @text;
+    background-color: @base;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
 }
 
 #clock {
-  color: @blue;
-  border-radius: 0.5rem;
-  /*margin-right: 1rem;*/
+    background-color: @base;
 }
 
 #battery {
-  color: @green;
+    background-color: @base;
+    color: @text;
 }
 
-#battery.charging {
-  color: @green;
+#battery.charging, #battery.plugged {
+    color: @text;
+    background-color: @base;
 }
 
-#battery.warning:not(.charging) {
-  color: @red;
+@keyframes blink {
+    to {
+        background-color: @red;
+        color: @text;
+    }
 }
 
-#backlight {
-  color: @yellow;
-}
-
-#idle_inhibitor {
-  color: @maroon;
-}
-
-#pulseaudio {
-  color: @maroon;
-}
-
-#custom-music {
-  color: @mauve;
-}
-
-#custom-lock {
-    color: @lavender;
-}
-
-#custom-power {
-    margin-right: 0.8rem;
-    border-radius: 0.5rem;
-    color: @red;
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: @text;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }

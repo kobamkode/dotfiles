@@ -1,6 +1,6 @@
 # Dotfiles
 
-My Fedora ~i3wm~Sway dotfiles
+My simple archlinux + hyprland dotfiles
 
 ## Usage
 
