@@ -112,7 +112,7 @@ configure_pkgs() {
             mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)"
         fi
         
-        git clone https://github.com/kobamkode/kickstart-modular.nvim.git "$HOME/.config/nvim"
+        git clone https://github.com/kobamkode/kickstart.nvim.git "$HOME/.config/nvim"
     fi
 }
 
