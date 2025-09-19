@@ -64,7 +64,7 @@ PKGS=(
 	yay-bin
 	zip
 )
-STOW=(ghostty tmux)
+STOW=(ghostty tmux hypr lazygit ncspot waybar wofi)
 
 update_os() {
     echo "Updating system..."
