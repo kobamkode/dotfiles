@@ -29,6 +29,7 @@ setup_mise() {
     echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.pub arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
     sudo apt update -y
     sudo apt install -y mise
+    echo 'eval "$(mise activate bash)"' >> ~/.bashrc
 }
 
 install_mise_pkgs() {
@@ -58,20 +59,19 @@ install_mise_pkgs() {
     mise use -g pnpm
 
     echo "=============================="
-    echo "Install Python & Pipx From Mise..."
+    echo "Install Python From Mise..."
     echo "=============================="
     mise use -g python
-    pip install --user pipx
+
+    echo "=============================="
+    echo "Install Python UV From Mise..."
+    echo "=============================="
+    mise use -g uv
 
     echo "=============================="
     echo "Install Neovim From Mise..."
     echo "=============================="
     mise use -g github:neovim/neovim
-
-    echo "=============================="
-    echo "Install Ghostty From Mise..."
-    echo "=============================="
-    mise use -g github:mkasberg/ghostty-ubuntu
 
     echo "=============================="
     echo "Install TaskWarrior-TUI From Mise..."
@@ -84,9 +84,18 @@ install_mise_pkgs() {
     mise use -g github:hrkfdn/ncspot
 
     echo "=============================="
-    echo "Install Python UV From Mise..."
+    echo "Install LazyGit From Mise..."
     echo "=============================="
-    mise use -g pipx:uv
+    mise use -g go:github.com/jesseduffield/lazygit
+}
+
+install_ghostty() {
+    echo "=============================="
+    echo "Install Ghostty..."
+    echo "=============================="
+    curl -L -O --output-dir /tmp https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_24.04.deb
+    sudo apt install /tmp/ghostty_1.2.3-0.ppa1_amd64_24.04.deb
+    rm /tmp/ghostty_1.2.3-0.ppa1_amd64_24.04.deb
 }
 
 install_apt_pkgs() {
@@ -132,13 +141,35 @@ configure_pkgs() {
     fi
 }
 
+install_tpm() {
+        echo "=============================="
+        echo "Install TPM..."
+        echo "=============================="
+	rm -rf ~/.tmux/plugins/tpm && rm -rf ~/.config/tmux/plugins/catppuccin/tmux
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	mkdir -p ~/.config/tmux/plugins/catppuccin
+	git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+}
+
+install_vectorcode() {
+        echo "=============================="
+        echo "Install VectorCode..."
+        echo "=============================="
+	uv tool install "vectorcode[lsp,mcp]<1.0.0"
+	uv tool update-shell
+}
+
+
 main() {
     echo "Starting system setup..."
     update_os
     setup_mise
     install_mise_pkgs
     install_apt_pkgs
+    install_ghostty
     configure_pkgs
+    install_tpm
+    install_vectorcode
     
     echo "Setup complete!"
     read -p "Reboot now? (y/N): " -n 1 -r
