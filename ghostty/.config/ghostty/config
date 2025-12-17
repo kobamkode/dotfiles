@@ -9,3 +9,4 @@ window-theme=ghostty
 copy-on-select=clipboard
 shell-integration=bash
 app-notifications=no-clipboard-copy
+background-opacity=0.8

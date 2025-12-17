@@ -9,66 +9,14 @@ PKGS=(
 	neovim
 	tmux
 	github-cli
-	gnome-disk-utility
 	ghostty
-	brightnessctl
-	catppuccin-gtk-theme-mocha
-	docker
-	docker-buildx
-	docker-compose
-	fd
-	flatpak
-	fzf
-	go
-	greetd
-	greetd-tuigreet
-	gvfs
-	hypridle
-	hyprlock
-	hyprpaper
-	hyprpolkitagent
-	lazygit
-	libnewt
-	ncspot-bin
-	nodejs
-	noto-fonts
-	noto-fonts-cjk
-	noto-fonts-emoji
-	npm
-	nwg-look
-	pavucontrol
-	playerctl
-	pnpm
-	power-profiles-daemon
-	python-libtmux
-	reflector
-	ripgrep
-	thunar
-	thunar-archive-plugin
-	thunar-volman
-	ttf-google-fonts-typewolf
-	ttf-jetbrains-mono-nerd
-	ttf-noto-nerd
-	unzip
-	uv
-	uwsm
-	vivaldi
-	vivaldi-ffmpeg-codecs
-	waybar
-	wget
-	xarchiver
-	xclip
-	xdg-desktop-portal-gtk
-	xdg-desktop-portal-hyprland
-	xsel
-	yay-bin
-	zip
 )
-STOW=(ghostty tmux hypr lazygit ncspot waybar wofi)
+
+STOW=(ghostty tmux lazygit ncspot)
 
 update_os() {
     echo "Updating system..."
-    sudo pacman -Syu --noconfirm
+    sudo apt update -y && sudo apt upgrade -y
 }
 
 install_pkgs() {
@@ -76,8 +24,7 @@ install_pkgs() {
     echo "Installing Packages..."
     echo "=============================="
     
-    # Install all packages at once (more efficient)
-    sudo pacman -S "${PKGS[@]}" --noconfirm --needed
+    sudo apt install "${PKGS[@]}" -y
 }
 
 configure_pkgs() {
