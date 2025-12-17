@@ -9,6 +9,7 @@ PKGS=(
 	tmux
 	gh
 	taskwarrior
+	wl-clipboard
 )
 
 STOW=(ghostty tmux lazygit ncspot)
@@ -29,7 +30,9 @@ setup_mise() {
     echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.pub arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
     sudo apt update -y
     sudo apt install -y mise
-    echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+    if ! grep -qF 'eval "$(mise activate bash)"' ~/.bashrc; then
+        echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+    fi
 }
 
 install_mise_pkgs() {
@@ -87,6 +90,16 @@ install_mise_pkgs() {
     echo "Install LazyGit From Mise..."
     echo "=============================="
     mise use -g go:github.com/jesseduffield/lazygit
+
+    echo "=============================="
+    echo "Install Ripgrep From Mise..."
+    echo "=============================="
+    mise use -g github:BurntSushi/ripgrep
+
+    echo "=============================="
+    echo "Install Tresitter CLI From Mise..."
+    echo "=============================="
+    mise use -g npm:tree-sitter-cli
 }
 
 install_ghostty() {
@@ -156,9 +169,10 @@ install_vectorcode() {
         echo "Install VectorCode..."
         echo "=============================="
 	uv tool install "vectorcode[lsp,mcp]<1.0.0"
-	uv tool update-shell
+	if ! grep -qF '.local/bin' ~/.bashrc || ! grep -qF 'uv' ~/.bashrc; then
+	    uv tool update-shell
+	fi
 }
-
 
 main() {
     echo "Starting system setup..."
