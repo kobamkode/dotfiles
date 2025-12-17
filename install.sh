@@ -6,24 +6,93 @@ PKGS=(
 	curl
 	git
 	stow
-	neovim
 	tmux
-	github-cli
-	ghostty
+	gh
+	taskwarrior
 )
 
 STOW=(ghostty tmux lazygit ncspot)
 
 update_os() {
-    echo "Updating system..."
+    echo "=============================="
+    echo "Upgrade system..."
+    echo "=============================="
     sudo apt update -y && sudo apt upgrade -y
+    sudo install -dm 755 /etc/apt/keyrings
 }
 
-install_pkgs() {
+setup_mise() {
     echo "=============================="
-    echo "Installing Packages..."
+    echo "Setup Mise..."
     echo "=============================="
-    
+    curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.pub 1> /dev/null
+    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.pub arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+    sudo apt update -y
+    sudo apt install -y mise
+}
+
+install_mise_pkgs() {
+    echo "=============================="
+    echo "Install Rust From Mise..."
+    echo "=============================="
+    mise use -g rust
+
+    echo "=============================="
+    echo "Install Go From Mise..."
+    echo "=============================="
+    mise use -g go
+
+    echo "=============================="
+    echo "Install NodeJs From Mise..."
+    echo "=============================="
+    mise use -g node 
+
+    echo "=============================="
+    echo "Install Bun From Mise..."
+    echo "=============================="
+    mise use -g bun
+
+    echo "=============================="
+    echo "Install PNPM From Mise..."
+    echo "=============================="
+    mise use -g pnpm
+
+    echo "=============================="
+    echo "Install Python & Pipx From Mise..."
+    echo "=============================="
+    mise use -g python
+    pip install --user pipx
+
+    echo "=============================="
+    echo "Install Neovim From Mise..."
+    echo "=============================="
+    mise use -g github:neovim/neovim
+
+    echo "=============================="
+    echo "Install Ghostty From Mise..."
+    echo "=============================="
+    mise use -g github:mkasberg/ghostty-ubuntu
+
+    echo "=============================="
+    echo "Install TaskWarrior-TUI From Mise..."
+    echo "=============================="
+    mise use -g github:kdheepak/taskwarrior-tui
+
+    echo "=============================="
+    echo "Install Ncspot From Mise..."
+    echo "=============================="
+    mise use -g github:hrkfdn/ncspot
+
+    echo "=============================="
+    echo "Install Python UV From Mise..."
+    echo "=============================="
+    mise use -g pipx:uv
+}
+
+install_apt_pkgs() {
+    echo "=============================="
+    echo "Installing APT Packages..."
+    echo "=============================="
     sudo apt install "${PKGS[@]}" -y
 }
 
@@ -59,14 +128,16 @@ configure_pkgs() {
             mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)"
         fi
         
-        git clone https://github.com/kobamkode/kickstart.nvim.git "$HOME/.config/nvim"
+        git clone -b personal https://github.com/kobamkode/kickstart.nvim.git "$HOME/.config/nvim"
     fi
 }
 
 main() {
     echo "Starting system setup..."
     update_os
-    install_pkgs
+    setup_mise
+    install_mise_pkgs
+    install_apt_pkgs
     configure_pkgs
     
     echo "Setup complete!"
