@@ -23,6 +23,13 @@ update_os() {
 }
 
 setup_mise() {
+    if command -v mise >/dev/null 2>&1; then
+        echo "=============================="
+        echo "Mise is already installed, skipping..."
+        echo "=============================="
+        return 0
+    fi
+
     echo "=============================="
     echo "Setup Mise..."
     echo "=============================="
@@ -65,6 +72,7 @@ install_mise_pkgs() {
     echo "Install Python From Mise..."
     echo "=============================="
     mise use -g python
+    pip install --user libtmux
 
     echo "=============================="
     echo "Install Python UV From Mise..."
@@ -76,7 +84,6 @@ install_mise_pkgs() {
     echo "=============================="
     mise use -g github:neovim/neovim
 
-    echo "=============================="
     echo "Install TaskWarrior-TUI From Mise..."
     echo "=============================="
     mise use -g github:kdheepak/taskwarrior-tui
@@ -103,6 +110,13 @@ install_mise_pkgs() {
 }
 
 install_ghostty() {
+    if command -v ghostty >/dev/null 2>&1; then
+        echo "=============================="
+        echo "Ghostty is already installed, skipping..."
+        echo "=============================="
+        return 0
+    fi
+    
     echo "=============================="
     echo "Install Ghostty..."
     echo "=============================="
@@ -144,10 +158,10 @@ configure_pkgs() {
         echo "=============================="
         echo "Setting up Neovim..."
         echo "=============================="
-        
+
         if [[ -d "$HOME/.config/nvim" ]]; then
-            echo "Backing up existing nvim config..."
-            mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)"
+            echo "Removing existing nvim config..."
+            rm -rf "$HOME/.config/nvim"
         fi
         
         git clone -b personal https://github.com/kobamkode/kickstart.nvim.git "$HOME/.config/nvim"
@@ -155,23 +169,37 @@ configure_pkgs() {
 }
 
 install_tpm() {
+    if [[ -d "$HOME/.tmux/plugins/tpm" ]]; then
         echo "=============================="
-        echo "Install TPM..."
+        echo "TPM is already installed, skipping..."
         echo "=============================="
-	rm -rf ~/.tmux/plugins/tpm && rm -rf ~/.config/tmux/plugins/catppuccin/tmux
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	mkdir -p ~/.config/tmux/plugins/catppuccin
-	git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+        return 0
+    fi
+    
+    echo "=============================="
+    echo "Install TPM..."
+    echo "=============================="
+    rm -rf ~/.tmux/plugins/tpm && rm -rf ~/.config/tmux/plugins/catppuccin/tmux
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    mkdir -p ~/.config/tmux/plugins/catppuccin
+    git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 }
 
 install_vectorcode() {
+    if command -v vectorcode >/dev/null 2>&1; then
         echo "=============================="
-        echo "Install VectorCode..."
+        echo "VectorCode is already installed, skipping..."
         echo "=============================="
-	uv tool install "vectorcode[lsp,mcp]<1.0.0"
-	if ! grep -qF '.local/bin' ~/.bashrc || ! grep -qF 'uv' ~/.bashrc; then
-	    uv tool update-shell
-	fi
+        return 0
+    fi
+    
+    echo "=============================="
+    echo "Install VectorCode..."
+    echo "=============================="
+    uv tool install "vectorcode[lsp,mcp]<1.0.0"
+    if ! grep -qF '.local/bin' ~/.bashrc || ! grep -qF 'uv' ~/.bashrc; then
+        uv tool update-shell
+    fi
 }
 
 main() {
