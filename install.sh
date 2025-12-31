@@ -107,6 +107,21 @@ install_mise_pkgs() {
     echo "Install Tresitter CLI From Mise..."
     echo "=============================="
     mise use -g npm:tree-sitter-cli
+
+    echo "=============================="
+    echo "Install TLDR From Mise..."
+    echo "=============================="
+    mise use -g npm:tldr
+
+    echo "=============================="
+    echo "Install Zx From Mise..."
+    echo "=============================="
+    mise use -g npm:zx
+
+    echo "=============================="
+    echo "Install MCP Hub From Mise..."
+    echo "=============================="
+    mise use -g npm:mcp-hub
 }
 
 install_ghostty() {
