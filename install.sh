@@ -6,10 +6,9 @@ PKGS=(
 	curl
 	git
 	stow
-	tmux
-	gh
-	taskwarrior
 	wl-clipboard
+	ffmpeg
+	scdoc
 )
 
 STOW=(ghostty tmux lazygit mise)
