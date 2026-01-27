@@ -9,6 +9,7 @@ PKGS=(
 	wl-clipboard
 	ffmpeg
 	scdoc
+	ydotool
 )
 
 STOW=(ghostty tmux lazygit mise)

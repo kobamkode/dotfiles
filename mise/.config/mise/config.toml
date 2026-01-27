@@ -3,19 +3,20 @@ node = "latest"
 pnpm = "latest"
 bun = "latest"
 python = "latest"
-uv = "latest"
 rust = "latest"
 go = "latest"
 "github:cli/cli" = "latest"
 "github:neovim/neovim" = "latest"
-"github:tmux/tmux" = "latest"
-"github:ReimuNotMoe/ydotool" = "latest"
+"github:tmux/tmux-builds" = "latest"
 "go:github.com/jesseduffield/lazygit" = "latest"
 "npm:tldr" = "latest"
 "npm:zx" = "latest"
-"pipx:libtmux" = "latest"
+"github:BurntSushi/ripgrep" = "latest"
 
 [shell_alias]
 update = "zx $HOME/dotfiles/mjs/update.mjs"
-start = "zx $HOME/dotfiles/mjs/start.mjs"
-note = "nvim $HOME/Markor/QuickNote.md"
+quartz = "cd $HOME/dev/quartz/content/"
+plugins = "cd $XDG_CONFIG_HOME/nvim/lua/custom/plugins/"
+
+[settings]
+experimental = true
