@@ -5,18 +5,25 @@ bun = "latest"
 python = "latest"
 rust = "latest"
 go = "latest"
-"github:cli/cli" = "latest"
-"github:neovim/neovim" = "latest"
-"github:tmux/tmux-builds" = "latest"
-"go:github.com/jesseduffield/lazygit" = "latest"
-"npm:tldr" = "latest"
-"npm:zx" = "latest"
-"github:BurntSushi/ripgrep" = "latest"
+zig = "0.15.1"
+ripgrep = "latest"
+tmux = "latest"
+lazygit = "latest"
+neovim = "latest"
+gum = "latest"
+fzf = "latest"
+github-cli = "latest"
+yt-dlp = { version = "latest", rename_exe = "yt-dlp" }
+lazydocker = "latest"
+fd = "latest"
+act = "latest"
+pipx = "latest"
+azure-cli = { version = "latest", uvx_args = "--prerelease=allow" }
 
 [shell_alias]
-update = "zx $HOME/dotfiles/mjs/update.mjs"
+update = "bash $HOME/dotfiles/update.sh"
 quartz = "cd $HOME/dev/quartz/content/"
-plugins = "cd $XDG_CONFIG_HOME/nvim/lua/custom/plugins/"
+plugins = "cd $HOME/.config/nvim/lua/custom/plugins/"
 
 [settings]
 experimental = true
