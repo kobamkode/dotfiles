@@ -5,7 +5,7 @@ bun = "latest"
 python = "latest"
 rust = "latest"
 go = "latest"
-zig = "0.15.1"
+zig = "0.15.2"
 ripgrep = "latest"
 tmux = "latest"
 lazygit = "latest"
@@ -19,11 +19,19 @@ fd = "latest"
 act = "latest"
 pipx = "latest"
 azure-cli = { version = "latest", uvx_args = "--prerelease=allow" }
+oh-my-posh = "latest"
+kubectl = "latest"
+azure-kubelogin = "latest"
+kubectx = "latest"
+kubens = "latest"
+k9s = "latest"
 
 [shell_alias]
 update = "bash $HOME/dotfiles/update.sh"
 quartz = "cd $HOME/dev/quartz/content/"
 plugins = "cd $HOME/.config/nvim/lua/custom/plugins/"
+t = "dstask"
+gp = "gpauth batavia.banpuindo.co.id --browser 2>/dev/null | sudo gpclient connect batavia.banpuindo.co.id --client-version 6.1.4-711 --hip --cookie-on-stdin"
 
 [settings]
 experimental = true

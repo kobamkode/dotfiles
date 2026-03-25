@@ -9,7 +9,7 @@ PKGS=(
 	ffmpeg
 )
 
-STOW=(ghostty tmux lazygit mise)
+STOW=(ghostty tmux lazygit mise oh-my-posh)
 
 update_os() {
 	echo "=============================="
@@ -90,7 +90,7 @@ configure_pkgs() {
 	eval "$(mise activate bash)"
 	mise install
 
-	if command -v nvim >/dev/null 2>&1; then
+	if mise which nvim >/dev/null 2>&1; then
 		echo "=============================="
 		echo "Setting up Neovim..."
 		echo "=============================="
