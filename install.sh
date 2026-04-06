@@ -50,9 +50,9 @@ install_ghostty() {
 	echo "=============================="
 	echo "Install Ghostty..."
 	echo "=============================="
-	curl -L -O --output-dir /tmp https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_24.04.deb
-	sudo apt install /tmp/ghostty_1.2.3-0.ppa1_amd64_24.04.deb
-	rm /tmp/ghostty_1.2.3-0.ppa1_amd64_24.04.deb
+	curl -L -O --output-dir /tmp https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.1-0-ppa2/ghostty_1.3.1-0.ppa2_amd64_24.04.deb
+	sudo apt install /tmp/ghostty_1.3.1-0.ppa2_amd64_24.04.deb
+	rm /tmp/ghostty_1.3.1-0.ppa2_amd64_24.04.deb
 }
 
 install_apt_pkgs() {
